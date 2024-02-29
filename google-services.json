@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "456230115063",
+    "project_id": "testvolt-v1",
+    "storage_bucket": "testvolt-v1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456230115063:android:2170b1c42d4faa1f19e5f2",
+        "android_client_info": {
+          "package_name": "com.firebase.appTestVolt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456230115063-dj2ph04qj3knfo9ogt2n7v8vpognk4bn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firebase.appTestVolt",
+            "certificate_hash": "b9f91ad2ce55c91754f6764dd00d8c6181387d26"
+          }
+        },
+        {
+          "client_id": "456230115063-m0df6bs6rtoqpflssvvmqcvttqvms2q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJbVhAvsMiqNUQFOAUZjbWaGwk1oytQ3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456230115063-m0df6bs6rtoqpflssvvmqcvttqvms2q5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456230115063-m3rk9uue5vf8ja9h8elsce5t6b6ro972.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firebase.appTestVolt"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
