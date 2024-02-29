@@ -99,7 +99,7 @@ const ImageDog = (props) => {
           data={dataNews}
           renderItem={renderItemNewPaper}
           keyExtractor={(item, index) => {
-            item.toString();
+            return index
           }}
           ItemSeparatorComponent={itemSeparator}
         />

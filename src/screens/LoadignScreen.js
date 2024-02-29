@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { Button, Dimensions, StyleSheet,ActivityIndicator, Text, View,Image } from 'react-native';
+import {ActivityIndicator,Text, View } from 'react-native';
 
 
 const LoadignScreen = (props)=>{
@@ -12,6 +12,7 @@ const LoadignScreen = (props)=>{
       />
      { message && <Text>{message}</Text>}
      <ActivityIndicator size="large" color="#232d53" />
+    
     </View>
 
 }

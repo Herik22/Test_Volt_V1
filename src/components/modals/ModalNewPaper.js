@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import Modal from "react-native-modal";
 import Sizes_ from "../../../utils/Sizes";
@@ -32,13 +33,28 @@ const ModalNewPaper = ({ setModalVisible, modalVisible, currentNew }) => {
       setLoading(false);
     }
   };
-  const renderDataContainer = (dataNew)=>{
-    return <View style={{width:'100%',height:'100%'}}>
-        <Text>{`Title: ${currentNew.title}`}</Text>
-        <Text>{`Start Year: ${dataNew.start_year}`}</Text>
-        <Text>{`End Year: ${dataNew.end_year}`}</Text>
-    </View>
-  }
+  const renderDataContainer = (dataNew) => {
+    return (
+      <ScrollView style={{ width: "100%", height: "100%" }}>
+        <View
+          style={{
+            width: "100%",
+            height: "100%",
+            justifyContent: "space-around",
+          }}
+        >
+          <Text>{`Title: ${dataNew.name}`}</Text>
+          <Text>{`Start Year: ${dataNew.start_year}`}</Text>
+          <Text>{`End Year: ${dataNew.end_year}`}</Text>
+          <Text>{`Issues: ${dataNew.issues.length}`}</Text>
+          <Text>{`Place: ${dataNew.place}`}</Text>
+          <Text>{`Place of Publication: ${dataNew.place_of_publication}`}</Text>
+          <Text>{`Publisher: ${dataNew.publisher}`}</Text>
+          <Text>{`Subject: ${dataNew.subject}`}</Text>
+        </View>
+      </ScrollView>
+    );
+  };
   const _renderModalContent = () => (
     <View style={[styles.modalContent]}>
       <View
@@ -53,9 +69,11 @@ const ModalNewPaper = ({ setModalVisible, modalVisible, currentNew }) => {
         }}
       >
         {loading && <ActivityIndicator size="large" color="pink" />}
-        {(!loading && dataNew) &&  <Text style={{ textAlign: "justify", fontSize: Sizes_.small }}>
-          {renderDataContainer(dataNew)}
-        </Text>}
+        {!loading && dataNew && (
+          <Text style={{ textAlign: "justify", fontSize: Sizes_.small }}>
+            {renderDataContainer(dataNew)}
+          </Text>
+        )}
       </View>
 
       <View
@@ -112,7 +130,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   modalContent: {
-    height: Dimensions.get("window").height * 0.3,
+    height: Dimensions.get("window").height * 0.35,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     width: "100%",

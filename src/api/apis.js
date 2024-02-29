@@ -8,7 +8,7 @@ const fetchAPI = async (endpoint) => {
       const data = await response.json();
       return data;
     } catch (error) {
-      
+      console.log('catch fetchAPI',error)
       throw error;
     }
   };
@@ -17,5 +17,5 @@ const fetchAPI = async (endpoint) => {
   export const fetchRandomDogImage = () => fetchAPI('https://dog.ceo/api/breeds/image/random');
   export const fetchNewspapers = () => fetchAPI('https://chroniclingamerica.loc.gov/newspapers.json');
   export const fetchExtraDataNewPaper = (endpoint) => fetchAPI(endpoint)
-  export const fetchJournals = () => fetchAPI('journals?query=pharmacy+health');
-  export const fetchTickers = () => fetchAPI('tickers/24hr');
+  export const fetchJournals = () => fetchAPI('https://api.crossref.org/journals?query=pharmacy+health');
+  export const fetchTickers = () => fetchAPI('https://api.wazirx.com/sapi/v1/tickers/24hr');
