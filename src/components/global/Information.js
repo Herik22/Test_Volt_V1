@@ -30,12 +30,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-   
   },
   containerWithBorders: {
     borderWidth: 0.3,
     padding: 4,
-    borderColor:Colors.mediumContrastGray
+    borderColor: Colors.mediumContrastGray,
   },
   title: {
     fontSize: Sizes_.x_small,

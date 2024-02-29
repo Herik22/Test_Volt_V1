@@ -1,9 +1,4 @@
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-} from "react-native";
+import { View, TouchableOpacity, Dimensions, StyleSheet } from "react-native";
 import React from "react";
 import Colors from "../../../utils/Colors";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -29,7 +24,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: "100%",
     minHeight: Dimensions.get("window").height * 0.1,
-    maxHeight:Dimensions.get("window").height * 0.2,
+    maxHeight: Dimensions.get("window").height * 0.2,
     borderWidth: 1,
     borderTopWidth: 8,
     borderRadius: 10,

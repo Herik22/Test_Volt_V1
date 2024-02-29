@@ -1,11 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, {useState, useCallback } from "react";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import React, { useState, useCallback } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import LoadingScreen from "./LoadingScreen";
 import ModalTickerInfo from "../components/modals/ModalTickerInfo";
@@ -41,7 +36,7 @@ const Tickers = (props) => {
   };
   const renderItemTickersData = (item) => {
     const auxTicker = item.item;
-    const atDate = new Date(auxTicker.at)
+    const atDate = new Date(auxTicker.at);
     return (
       <View>
         <Card
@@ -60,12 +55,11 @@ const Tickers = (props) => {
               title="Last Price"
               value={auxTicker.lastPrice}
             />
-          
+
             <InformationContainer
               title="Range"
               value={`${auxTicker.lowPrice} - ${auxTicker.highPrice} `}
             />
-            
           </View>
         </Card>
         <Text style={styles.txtDate}> {atDate.toLocaleDateString()} </Text>
@@ -77,9 +71,7 @@ const Tickers = (props) => {
     <LoadingScreen message={"Fetch Tickers ..."} />
   ) : (
     <PageContainer navigation={navigation} title="NewsPapers">
-      <View
-        style={styles.pageContainer}
-      >
+      <View style={styles.pageContainer}>
         <FlatList
           data={tickersData}
           initialNumToRender={7}
@@ -118,19 +110,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft:0,
+    marginLeft: 0,
     gap: 20,
   },
   separator: {
     height: 10,
     width: "100%",
   },
-  txtDate:{width:'100%',textAlign:'right',paddingRight:10,color:Colors.mediumContrastGray},
-  pageContainer:{
+  txtDate: {
+    width: "100%",
+    textAlign: "right",
+    paddingRight: 10,
+    color: Colors.mediumContrastGray,
+  },
+  pageContainer: {
     flex: 1,
     width: "100%",
     height: "100%",
   },
-
 });
 export default Tickers;

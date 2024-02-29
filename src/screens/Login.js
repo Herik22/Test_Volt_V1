@@ -13,15 +13,14 @@ import { useLogin } from "../../context/ContextProvider";
 import GoogleIcon from "../../assets/googleIcon.png";
 import VoltLogo from "../../assets/voltLogo.png";
 import Colors from "../../utils/Colors";
-import Config from 'react-native-config';
+import Config from "react-native-config";
 
 const Login = () => {
   const { setIsLoggedIn, setContextUserInfo } = useLogin();
   const [error, setError] = useState("");
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId:Config.GOOGLE_WEB_CLIENT_ID
-    
+      webClientId: Config.GOOGLE_WEB_CLIENT_ID,
     });
   }, []);
 
