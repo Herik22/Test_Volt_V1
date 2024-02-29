@@ -9,14 +9,17 @@ import {
   import Modal from "react-native-modal";
   import React, { useEffect, useState } from "react";
   import { Feather } from "@expo/vector-icons";
-  import InformationContainer from "../ticker/Information";
+  import InformationContainer from "../global/Information";
+import Sizes_ from "../../../utils/Sizes";
+import Colors from "../../../utils/Colors";
   
   const ModalTickerInfo = ({ setModalVisible, modalVisible, currentTicker }) => {
+   
     const _renderModalContent = () => (
       <View style={[styles.modalContent]}>
         <View
           style={{
-            flex: 0.7,
+            flex: 1,
             width: "100%",
             height: "100%",
             justifyContent: "flex-start",
@@ -47,7 +50,7 @@ import {
               marginTop: 10,
               flexDirection: "row",
               flexWrap: "wrap",
-              gap: 10,
+              gap: 20,
             }}
           >
             <InformationContainer
@@ -85,49 +88,10 @@ import {
               value={currentTicker.askPrice}
               hasBorders
             />
-            <InformationContainer
-              title="At"
-              value={currentTicker.at}
-              hasBorders
-            />
+            
           </View>
         </View>
-  
-        {/* "baseAsset": "btc",
-          "quoteAsset": "inr",
-          "openPrice": "4980952",
-          "lowPrice": "4960550.0",
-          "highPrice": "5493000.0",
-          "lastPrice": "5329999.0",
-          "volume": "29.85749",
-          "bidPrice": "5316000.0",
-          "askPrice": "5329999.0",
-          "at": 1709179187000 */}
-        <View
-          style={{
-            flex: 0.3,
-            width: "100%",
-            height: "100%",
-            justifyContent: "flex-start",
-            borderWidth: 0.3,
-            flexDirection: "row",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              setModalVisible(!modalVisible);
-            }}
-            style={{
-              width: "100%",
-              height: "100%",
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text>Close</Text>
-          </TouchableOpacity>
-        </View>
+       
       </View>
     );
   
@@ -151,13 +115,12 @@ import {
       backgroundColor: "aqua",
       justifyContent: "center",
       alignItems: "center",
-  
       borderColor: "aqua",
       width: "100%",
       height: "100%",
     },
     modalContent: {
-      height: Dimensions.get("window").height * 0.3,
+      height: Dimensions.get("window").height * 0.25,
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,
       width: "100%",
@@ -167,6 +130,7 @@ import {
     textBlanco: {
       color: "white",
     },
+    textClose:{ fontSize: Sizes_.small,color:Colors.mediumContrastGray,fontWeight:'bold' }
   });
   
   export default ModalTickerInfo;

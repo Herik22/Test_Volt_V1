@@ -8,7 +8,6 @@ const fetchAPI = async (endpoint) => {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log('catch fetchAPI',error)
       throw error;
     }
   };

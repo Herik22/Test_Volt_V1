@@ -1,19 +1,20 @@
-import { View, TouchableOpacity, FlatList, Dimensions, Text } from "react-native";
+import { View,FlatList,StyleSheet} from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useState, useCallback } from "react";
-import LoadignScreen from "./LoadignScreen";
+import LoadingScreen from "./LoadingScreen";
 import PageContainer from "../components/global/PageContainer";
 import { fetchNewspapers } from "../api/apis";
-import { Feather } from "@expo/vector-icons";
-import Sizes_ from "../../utils/Sizes";
 import ModalNewPaper from "../components/modals/ModalNewPaper";
-const ImageDog = (props) => {
+import ItemSeparator from "../components/global/ItemSeparator";
+import Card from "../components/global/Card";
+import InformationContainer from "../components/global/Information";
+
+const NewsPapers = (props) => {
   const { navigation } = props;
   const [dataNews, setDataNews] = useState([]);
-  const [datacurrentNew, setDataCurrentNew] = useState([]);
+  const [datacurrentNews, setDataCurrentNews] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [messageLoading, setMessageLoading] = useState("Fetch News ...");
-  const [showModalNew, setShowModalNew] = useState(false);
+  const [showModalNews, setShowModalNews] = useState(false);
   useFocusEffect(
     useCallback(() => {
       getNewsData();
@@ -23,90 +24,54 @@ const ImageDog = (props) => {
     setLoading(true);
     try {
       const data = await fetchNewspapers();
-      console.log("data news", data.newspapers[4]);
       data && setDataNews(data.newspapers);
       setLoading(false);
     } catch (error) {
-      console.error("Failed to fetchNewspapers : ", error);
+      alert(`Get News  Error : ${error}`);
       setLoading(false);
     }
   };
-  const renderItemNewPaper = (item) => {
-    const auxNewPaper = item.item;
-    return (
-      <View
-        style={{
-          width: '100%' ,
-          height: Dimensions.get("window").height * 0.15,
-          borderWidth: 0.3,
-          borderRadius:10,
-          flexDirection: "row",
-          
-        }}
-      >
-        <View
-          style={{
-            flex: 0.8,
-            width: "100%",
-            height: "100%",
-            justifyContent:'space-around',
-            paddingHorizontal:10
-          }}
-        >
-          <Text>Control Number: {auxNewPaper.lccn}</Text>
-          <Text>Tittle: {auxNewPaper.title}</Text>
-          <Text>State: {auxNewPaper.state}</Text>
-        </View>
-        <TouchableOpacity
-        onPress={()=>{
-          setDataCurrentNew(auxNewPaper)
-          setShowModalNew(true)
-        }}
-          style={{
-            flex: 0.2,
-            width: "100%",
-            height: "100%",
-            borderWidth:0,
-            justifyContent:'center',
-            alignItems:'center',
-            backgroundColor:'yellow',
-            borderRadius:10,
-
-          }}
-        >
-          <Feather name="plus" size={Sizes_.normal} color={'black'} />
-          <Text>See More</Text>
-        </TouchableOpacity>
+  const renderItemNewsPaper = (item) => {
+    const auxNewsPaper = item.item;
+    return <Card onPress={()=>{
+      setDataCurrentNews(auxNewsPaper)
+      setShowModalNews(true)
+    }}> 
+      <View style={styles.containerCard}>
+        <InformationContainer title={'Control Number'} value={auxNewsPaper.lccn} inLine/>
+        <InformationContainer title={'Title'} value={auxNewsPaper.title} inLine/>
+        <InformationContainer title={'State'} value={auxNewsPaper.state} inLine/>
+ 
       </View>
-    );
+    </Card>;
   };
-  const itemSeparator = () => {
-    return <View style={{ height: 5, width: "100%" }} />;
-  };
+ 
 
   return loading ? (
-    <LoadignScreen message={messageLoading} />
+    <LoadingScreen message={"Fetch News ..."} />
   ) : (
     <PageContainer navigation={navigation} title="NewsPapers">
       <View
-        style={{
-          flex: 1,
-          width: "100%",
-          height: "100%",
-        }}
+        style={styles.container}
       >
         <FlatList
           data={dataNews}
-          renderItem={renderItemNewPaper}
-          keyExtractor={(item, index) => {
-            return index
-          }}
-          ItemSeparatorComponent={itemSeparator}
+          initialNumToRender={7}
+          renderItem={renderItemNewsPaper}
+          keyExtractor={(item, index) => item.lccn}
+          ItemSeparatorComponent={ItemSeparator}
         />
       </View>
-      {showModalNew && <ModalNewPaper currentNew={datacurrentNew}  modalVisible={showModalNew} setModalVisible={setShowModalNew} />}
+      {showModalNews && <ModalNewPaper currentNew={datacurrentNews}  modalVisible={showModalNews} setModalVisible={setShowModalNews} />}
     </PageContainer>
   );
 };
-
-export default ImageDog;
+const styles = StyleSheet.create({
+  containerCard:{width:'100%',alignItems:'flex-start'},
+  container:{
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
+})
+export default NewsPapers;

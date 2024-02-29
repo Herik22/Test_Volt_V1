@@ -10,8 +10,9 @@ import {
 import Modal from "react-native-modal";
 import Sizes_ from "../../../utils/Sizes";
 import React, { useEffect, useState } from "react";
-import { Feather } from "@expo/vector-icons";
 import { fetchExtraDataNewPaper } from "../../api/apis";
+import InformationContainer from "../global/Information";
+import Colors from "../../../utils/Colors";
 
 const ModalNewPaper = ({ setModalVisible, modalVisible, currentNew }) => {
   const [loading, setLoading] = useState(false);
@@ -24,81 +25,73 @@ const ModalNewPaper = ({ setModalVisible, modalVisible, currentNew }) => {
     setLoading(true);
     try {
       const data = await fetchExtraDataNewPaper(currentNew.url);
-      console.log("data new", { ...data, issues: data.issues.length });
       data && setDataNew(data);
 
       setLoading(false);
     } catch (error) {
-      console.error("Failed to fetch fetchExtraDataNewPaper: ", error);
+      alert(`Get ExtraData News  Error : ${error}`);
       setLoading(false);
     }
   };
   const renderDataContainer = (dataNew) => {
     return (
-      <ScrollView style={{ width: "100%", height: "100%" }}>
-        <View
-          style={{
-            width: "100%",
-            height: "100%",
-            justifyContent: "space-around",
-          }}
-        >
-          <Text>{`Title: ${dataNew.name}`}</Text>
-          <Text>{`Start Year: ${dataNew.start_year}`}</Text>
-          <Text>{`End Year: ${dataNew.end_year}`}</Text>
-          <Text>{`Issues: ${dataNew.issues.length}`}</Text>
-          <Text>{`Place: ${dataNew.place}`}</Text>
-          <Text>{`Place of Publication: ${dataNew.place_of_publication}`}</Text>
-          <Text>{`Publisher: ${dataNew.publisher}`}</Text>
-          <Text>{`Subject: ${dataNew.subject}`}</Text>
+      <ScrollView style={styles.containerScroll}>
+        <View style={styles.containerData}>
+          <Text style={styles.titleNews}>{`${dataNew.name}`}</Text>
+          <InformationContainer
+            title={"Publisher"}
+            value={dataNew.publisher}
+            inLine
+          />
+          <InformationContainer title={"Place"} value={dataNew.place} inLine />
+          <InformationContainer
+            title={"Place of Publication"}
+            value={dataNew.place_of_publication}
+            inLine
+          />
+          <InformationContainer
+            title={"Start Year"}
+            value={dataNew.start_year}
+            inLine
+          />
+          <InformationContainer
+            title={"End Year"}
+            value={dataNew.end_year}
+            inLine
+          />
+          <InformationContainer
+            title={"Number of Issues"}
+            value={dataNew.issues.length}
+            inLine
+          />
+          <InformationContainer
+            title={"Subjects"}
+            value={dataNew.subject.length}
+            inLine
+          />
         </View>
       </ScrollView>
     );
   };
   const _renderModalContent = () => (
     <View style={[styles.modalContent]}>
-      <View
-        style={{
-          flex: 0.7,
-          width: "100%",
-          height: "100%",
-          justifyContent: "space-around",
-          padding: 20,
-          alignItems: "center",
-          borderWidth: 0,
-        }}
-      >
-        {loading && <ActivityIndicator size="large" color="pink" />}
+      <View style={styles.dataModalContainer}>
+        {loading && <ActivityIndicator size="large" color={Colors.main} />}
         {!loading && dataNew && (
-          <Text style={{ textAlign: "justify", fontSize: Sizes_.small }}>
+          <View style={styles.subModalContainer}>
             {renderDataContainer(dataNew)}
-          </Text>
+          </View>
         )}
       </View>
 
-      <View
-        style={{
-          flex: 0.3,
-          width: "100%",
-          height: "100%",
-          justifyContent: "flex-start",
-          borderWidth: 0.3,
-          flexDirection: "row",
-        }}
-      >
+      <View style={styles.buttonCloseModalContainer}>
         <TouchableOpacity
           onPress={() => {
             setModalVisible(!modalVisible);
           }}
-          style={{
-            width: "100%",
-            height: "100%",
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={styles.buttonClose}
         >
-          <Text style={{ fontSize: Sizes_.small }}>Close</Text>
+          <Text style={styles.textClose}>Close</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -140,6 +133,50 @@ const styles = StyleSheet.create({
   textBlanco: {
     color: "white",
     fontSize: Sizes_.small,
+  },
+  textClose: {
+    fontSize: Sizes_.small,
+    color: Colors.mediumContrastGray,
+    fontWeight: "bold",
+  },
+  containerScroll: { width: "100%", height: "100%" },
+  containerData: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "space-around",
+    gap: 10,
+    alignItems: "flex-start",
+  },
+  titleNews: {
+    alignSelf: "center",
+    fontSize: Sizes_.x_small,
+    fontWeight: "bold",
+    color: Colors.main,
+  },
+  dataModalContainer: {
+    flex: 0.8,
+    width: "100%",
+    height: "100%",
+    justifyContent: "space-around",
+    padding: 20,
+    alignItems: "center",
+    borderWidth: 0,
+  },
+  subModalContainer: { width: "100%", height: "100%" },
+  buttonCloseModalContainer: {
+    flex: 0.2,
+    width: "100%",
+    height: "100%",
+    justifyContent: "flex-start",
+    borderWidth: 0.3,
+    flexDirection: "row",
+  },
+  buttonClose: {
+    width: "100%",
+    height: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
